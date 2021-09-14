@@ -2,6 +2,7 @@
   "name": "mern-shopping",
   "version": "1.0.0",
   "description": "",
+  "homepage": "https://ddaghlas.github.io/redux-shop",
   "main": "server/server.js",
   "scripts": {
     "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
@@ -14,6 +15,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "gh-pages": "^3.2.3",
     "if-env": "^1.0.4"
   },
   "devDependencies": {
