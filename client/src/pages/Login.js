@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/react-hooks'; // Importing react-hooks
 import { Link } from 'react-router-dom';
 import { LOGIN } from '../utils/mutations';
 import Auth from '../utils/auth';
@@ -8,7 +8,7 @@ function Login(props) {
   const [formState, setFormState] = useState({ email: '', password: '' });
   const [login, { error }] = useMutation(LOGIN);
 
-  const handleFormSubmit = async (event) => {
+  const handleFormSubmit = async event => {
     event.preventDefault();
     try {
       const mutationResponse = await login({
@@ -21,7 +21,7 @@ function Login(props) {
     }
   };
 
-  const handleChange = (event) => {
+  const handleChange = event => {
     const { name, value } = event.target;
     setFormState({
       ...formState,
@@ -55,11 +55,11 @@ function Login(props) {
             onChange={handleChange}
           />
         </div>
-        {error ? (
+        {error ? 
           <div>
             <p className="error-text">The provided credentials are incorrect</p>
           </div>
-        ) : null}
+         : null}
         <div className="flex-row flex-end">
           <button type="submit">Submit</button>
         </div>
