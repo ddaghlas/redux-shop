@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/react-hooks'; // Importing react-hooks
 
 import Cart from '../components/Cart';
-import { useStoreContext } from '../utils/GlobalState';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   REMOVE_FROM_CART,
   UPDATE_CART_QUANTITY,
@@ -15,7 +15,9 @@ import { idbPromise } from '../utils/helpers';
 import spinner from '../assets/spinner.gif';
 
 function Detail() {
-  const [state, dispatch] = useStoreContext();
+  // Created dispatch and Selector
+  const dispatch = useDispatch();
+  const state = useSelector(state => state);
   const { id } = useParams();
 
   const [currentProduct, setCurrentProduct] = useState({});
@@ -27,7 +29,7 @@ function Detail() {
   useEffect(() => {
     // already in global store
     if (products.length) {
-      setCurrentProduct(products.find((product) => product._id === id));
+      setCurrentProduct(products.find(product => product._id === id));
     }
     // retrieved from server
     else if (data) {
@@ -52,7 +54,7 @@ function Detail() {
   }, [products, data, loading, dispatch, id]);
 
   const addToCart = () => {
-    const itemInCart = cart.find((cartItem) => cartItem._id === id);
+    const itemInCart = cart.find((cartItem) => cartItem._id === id)
     if (itemInCart) {
       dispatch({
         type: UPDATE_CART_QUANTITY,
@@ -70,7 +72,7 @@ function Detail() {
       });
       idbPromise('cart', 'put', { ...currentProduct, purchaseQuantity: 1 });
     }
-  };
+  }
 
   const removeFromCart = () => {
     dispatch({
@@ -95,7 +97,7 @@ function Detail() {
             <strong>Price:</strong>${currentProduct.price}{' '}
             <button onClick={addToCart}>Add to Cart</button>
             <button
-              disabled={!cart.find((p) => p._id === currentProduct._id)}
+              disabled={!cart.find(p => p._id === currentProduct._id)}
               onClick={removeFromCart}
             >
               Remove from Cart
