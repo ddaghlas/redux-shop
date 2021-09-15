@@ -13,7 +13,7 @@
 * [License](#license)
 
 ## Deployed Application
-* [Shop-Shop Redux Store]()
+* [Shop-Shop Redux Store](https://thawing-scrubland-80179.herokuapp.com/)
 
 ## Installation
 
